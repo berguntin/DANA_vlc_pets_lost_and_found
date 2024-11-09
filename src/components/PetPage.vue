@@ -1,5 +1,5 @@
 <template>
-    <div v-if="pet" class="container mx-auto p-4 mt-5 mb-5" >
+    <div v-if="pet" class="container mx-auto mt-5 mb-5" >
       <div class="flex flex-col md:flex-row md:space-x-6">
         <!-- Photo Slider -->
         <div class="md:w-1/2 mb-6 md:mb-0 h-full bg-transparent">
@@ -14,10 +14,9 @@
         <!-- Pet Information Card -->
         <div class="md:w-1/2 h-full" >
           <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-            <div class="p-6">
-              <div class="flex justify-between items-center my-4">
+            <div class="p-4">
+              <div class="flex justify-between items-center my-4" v-if="pet.name">
                 <h1 class="text-3xl font-bold text-gray-800">{{ pet.name }}</h1>
-                
               </div>
               <div class="flex flex-row justify-between my-1">
                 <div class="flex items-center">
@@ -53,15 +52,18 @@
               </div>
               <p class="text-gray-700 my-4">{{ pet.description }}</p>
               <div class="mb-4">
-                <h2 class="text-lg font-semibold text-gray-800 mb-2">Contacto:</h2>
+                <h2 class="text-md font-semibold text-gray-800 mb-2">Contacto:</h2>
                 <p class="text-gray-600">{{ pet.contact }}</p>
               </div>
-              <div v-if="pet.alive && !pet.athome" class="mt-4">
-                <button :class="['btn w-100 m-auto text-gray-50', error ? 'btn-warning' :  'btn-primary']" 
-                        @click="confirmSetAtHome" :disabled="isLoading">
-                    {{error ? error : 'Marcar como "en casa"'}}
-                </button>
-            </div>
+              <div class="flex justify-between align-middle mt-4 gap-1">
+                <div v-if="pet.alive && !pet.athome">
+                  <button :class="['btn w-100 m-auto text-gray-50', error ? 'btn-warning' :  'btn-primary']" 
+                          @click="confirmSetAtHome" :disabled="isLoading">
+                      {{error ? error : 'Marcar como "en casa"'}}
+                  </button>
+                </div>
+                <ShareButton :pet="pet"/>
+              </div>
             </div>
           </div>
         </div>
@@ -76,6 +78,7 @@
     import { formatDate } from '@/helpers/dateHelper'
     import { getPetById } from '../api';
     import { setAtHome } from '../api';
+    import ShareButton from '@/components/ShareButton.vue'
     // import function to register Swiper custom elements
     import { register } from 'swiper/element/bundle';
     // register Swiper custom elements

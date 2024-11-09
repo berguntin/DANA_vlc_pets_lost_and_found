@@ -1,5 +1,5 @@
 <template>
-  <div class="card bg-base-100 shadow-xl" @click="$router.push({name: 'Pet', params: {id: pet.id}})">
+  <div class="card bg-base-100 shadow-xl">
     <figure class="relative">
       <swiper-container class="w-full h-80" pagination="true">
         <swiper-slide v-for="(image, index) in pet.images" :key="index">
@@ -42,9 +42,13 @@
         <div v-if="!pet.alive" class="badge badge-neutral">Fallecido</div>
       </div>
       <p class="text-sm mt-2 line-clamp-2 mb-2">{{ pet.description }}</p>
-      <div class="w-full flex justify-end">
+      
+    </div>
+    <div class="card-actions p-2 flex justify-between">
+      <ShareButton :pet="pet" :onlyIcon="true" className="btn-ghost"/>
+      <RouterLink :to="{name: 'Pet', params: {id: pet.id}}" class="w-100 btn btn-ghost">
           Ver detalles <ArrowRight/>
-      </div>
+      </RouterLink>
     </div>
   </div>
 </template>
@@ -54,6 +58,7 @@ import { MapPinIcon, CalendarIcon, HomeIcon, UserIcon, ArrowRight, EyeOffIcon } 
 import { formatDate } from '@/helpers/dateHelper'
 import { ref } from 'vue';
 import { defineEmits } from 'vue';
+import ShareButton from '@/components/ShareButton.vue';
 // import function to register Swiper custom elements
 import { register } from 'swiper/element/bundle';
 // register Swiper custom elements
