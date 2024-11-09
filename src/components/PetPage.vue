@@ -1,29 +1,16 @@
 <template>
-    <div class="container mx-auto p-4 mt-5 mb-5" v-if="pet">
+    <div v-if="pet" class="container mx-auto p-4 mt-5 mb-5" >
       <div class="flex flex-col md:flex-row md:space-x-6">
         <!-- Photo Slider -->
-        <div class="md:w-1/2 mb-6 md:mb-0 h-full">
-          <div class="relative h-64 md:h-96 bg-gray-200 rounded-lg overflow-hidden">
-            <img 
-              v-for="(photo, index) in pet.images" 
-              :key="index" 
-              :src="photo" 
-              :alt="`Photo of ${pet.name || 'pet'}`"
-              class="absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ease-in-out"
-              :class="{ 'opacity-100': currentPhotoIndex === index, 'opacity-0': currentPhotoIndex !== index }"
-            >
-            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-              <button 
-                v-for="(_, index) in pet.photos" 
-                :key="index"
-                @click="currentPhotoIndex = index"
-                class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 transition-opacity duration-300"
-                :class="{ 'opacity-100': currentPhotoIndex === index }"
-              ></button>
-            </div>
+        <div class="md:w-1/2 mb-6 md:mb-0 h-full bg-transparent">
+          <div class="relative rounded-lg overflow-hidden">
+            <swiper-container pagination="true" scrollbar="true">
+              <swiper-slide  v-for="(photo, index) in pet.images" >
+                <img :src="photo" :alt="`imagen de ${pet.name || 'la mascota'}`" class="m-auto">
+              </swiper-slide>
+            </swiper-container>
           </div>
         </div>
-  
         <!-- Pet Information Card -->
         <div class="md:w-1/2 h-full" >
           <div class="bg-white shadow-lg rounded-lg overflow-hidden">
@@ -89,6 +76,11 @@
     import { formatDate } from '@/helpers/dateHelper'
     import { getPetById } from '../api';
     import { setAtHome } from '../api';
+    // import function to register Swiper custom elements
+    import { register } from 'swiper/element/bundle';
+    // register Swiper custom elements
+    register();
+
 
     const petId = useRoute().params.id
     
