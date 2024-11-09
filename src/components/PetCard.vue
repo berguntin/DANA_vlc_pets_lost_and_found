@@ -1,18 +1,22 @@
 <template>
   <div class="card bg-base-100 shadow-xl" @click="$router.push({name: 'Pet', params: {id: pet.id}})">
     <figure class="relative">
-      <img loading="lazy" :class="['w-full h-80 object-cover', !pet.alive ? 'blur-md' : '']" 
-            :src="pet.images[0]" :alt="pet.breed">
-            <div v-if="!pet.alive" class="absolute inset-0 flex justify-center items-center flex-col text-gray-50">
-              <EyeOffIcon class="w-10 h-10"/>
-              <span>Contenido sensible</span>
-            </div>
+      <swiper-container class="w-full h-80" pagination="true">
+        <swiper-slide v-for="(image, index) in pet.images" :key="index">
+          <img loading="lazy" :class="['w-full h-80 object-cover', !pet.alive ? 'blur-md' : '']" 
+               :src="image" :alt="`${pet.breed} - Image ${index + 1}`">
+        </swiper-slide>
+      </swiper-container>
+      <div v-if="!pet.alive" class="absolute inset-0 flex justify-center items-center flex-col text-gray-50">
+        <EyeOffIcon class="w-10 h-10"/>
+        <span>Contenido sensible</span>
+      </div>
       <div v-if="pet.athome" 
-           class="absolute top-2 left-2 badge badge-primary badge-lg gap-2 p-4">
+           class="absolute top-2 left-2 badge badge-primary badge-lg gap-2 p-4 z-10">
         <HomeIcon class="w-4 h-4" />
         Reunido con su familia!!
       </div>
-      <div v-if="!pet.athome" class="absolute top-2 right-2 badge badge-lg text-gray-100"
+      <div v-if="!pet.athome" class="absolute top-2 right-2 badge badge-lg text-gray-100 z-10"
            :class="pet.status === 'lost' ? 'badge-error' : 'badge-warning text-gray-900'">
         {{ pet.status === 'lost' ? 'Me buscan' : 'Encontrado' }}
       </div>
@@ -50,7 +54,10 @@ import { MapPinIcon, CalendarIcon, HomeIcon, UserIcon, ArrowRight, EyeOffIcon } 
 import { formatDate } from '@/helpers/dateHelper'
 import { ref } from 'vue';
 import { defineEmits } from 'vue';
-
+// import function to register Swiper custom elements
+import { register } from 'swiper/element/bundle';
+// register Swiper custom elements
+register();
 
 
 const props = defineProps({
