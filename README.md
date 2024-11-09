@@ -6,7 +6,7 @@ Ha sido creado con carácter de urgencia debido a la gran cantidad de peludos pe
 
 
 ## TODO
-- [ ] Buscador
+- [X] Buscador
 - [ ] Filtrado por localidad
 - [ ] Paginación
 - [ ] Botón compartir en redes sociales
