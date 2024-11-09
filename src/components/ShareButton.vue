@@ -30,11 +30,13 @@
               <h2 class="text-xl font-bold mb-4">Compartir en redes</h2>
               <ul class="space-y-2">
                 <li 
-                  v-for="network in networks" 
+                  v-for="(network, index) in networks" 
                   :key="network.name"
                   :class="['rounded-md py-2 px-4 text-sm', network.color]"
                 >
-                  <ShareNetwork 
+                  <ShareNetwork
+                    ref="shareNetworkRef" 
+                    @open="runWorkaround(index)" 
                     :network="network.name"
                     :url="getUrl()"
                     :title="getTitle()"
@@ -47,6 +49,7 @@
                     <span class="capitalize">{{ network.name }}</span>
                     <component :is="network.icon" class="h-5 w-5" />
                   </ShareNetwork>
+                  
                 </li>
               </ul>
             </div>
@@ -118,6 +121,14 @@
     }
   }
   
+  const shareNetworkRef = ref(null);
+  const runWorkaround = (index) => {
+    console.log()
+    if (shareNetworkRef.value[index] === null) return;
+
+        clearInterval(shareNetworkRef.value[index].popupInterval);
+        shareNetworkRef.value[index].popupWindow = undefined;
+    }
   const handleEscapeKey = (event) => {
     if (isActive.value && event.key === 'Escape') {
       togglePopup()
