@@ -40,7 +40,7 @@ const getTitle = () => {
     }
 
     return props.pet.status === 'lost' ? 
-                    `Ayudame a encontrar a ${props.pet.name || 'mi mascota'}` :
+                    `Ayúdame a encontrar a ${props.pet.name || 'mi mascota'}` :
                     `¿Alguien lo busca?`
 }
 
