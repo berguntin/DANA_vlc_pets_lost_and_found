@@ -62,7 +62,7 @@
                       {{error ? error : 'Marcar como "en casa"'}}
                   </button>
                 </div>
-                <ShareButton :pet="pet"/>
+                <ShareButton :pet="pet" :onlyIcon="false"/>
               </div>
             </div>
           </div>
@@ -73,7 +73,7 @@
   
 <script setup>
     import { onMounted, ref } from 'vue'
-    import { CalendarIcon, MapPinIcon } from 'lucide-vue-next'
+    import { CalendarIcon, FastForward, MapPinIcon } from 'lucide-vue-next'
     import { useRoute } from 'vue-router';
     import { formatDate } from '@/helpers/dateHelper'
     import { getPetById } from '../api';
