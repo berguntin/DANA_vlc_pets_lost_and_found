@@ -17,7 +17,7 @@ Ha sido creado con carácter de urgencia debido a la gran cantidad de peludos pe
 
 Crea un fichero .env siguiento en ```.env.example```
 
-Añade el API de desarrollo ```https://lostfoundapi-git-development-berguntins-projects.vercel.app/?vercelToolbarCode=5iahZh1vWA5H5w0/api/pets```
+Añade el API de desarrollo ```https://lostfoundapi-git-development-berguntins-projects.vercel.app/api/pets```
 
 [ Opcional ] Puedes crear tu propia API
 
